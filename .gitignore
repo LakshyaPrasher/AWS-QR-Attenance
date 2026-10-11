@@ -1,0 +1,55 @@
+# Environment & Secret Variables
+.env
+*.env
+*.env.*
+.secrets*
+*.pem
+*.key
+
+# Python Artifacts & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+
+# Local Testing Presentations & Ephemeral Renders
+*.pptx
+test_*.png
+test_*.jpg
+crop_*.png
+final_preview/
+swiss_white_preview/
+test_user_scenario_preview/
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary & Deployment Caches
+*.log
+/tmp/
+temp/
+osm_tiles/
