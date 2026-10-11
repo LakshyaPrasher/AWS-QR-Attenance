@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Attendance – MTN Benin | Cyber Crisis Simulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN SYSTEM — MTN EXECUTIVE YELLOW
+       Calibrated for 100% NO-SCROLL single-page responsive execution.
+    ═══════════════════════════════════════════════════════════════ */
+    :root {
+      --yellow-50:  #FFFDF2;
+      --yellow-100: #FFF8CC;
+      --yellow-200: #FFF099;
+      --yellow-300: #FFE766;
+      --yellow-400: #FFDB33;
+      --yellow-500: #FFD419;
+      --yellow-600: #FFCC00; /* MTN Yellow */
+      --yellow-700: #E6B800;
+      --yellow-800: #B38F00;
+      --yellow-900: #806600;
+
+      --gray-0:   #FFFFFF;
+      --gray-50:  #FAF9F9;
+      --gray-100: #F4F2F2;
+      --gray-200: #EBE8E8;
+      --gray-300: #D8D4D4;
+      --gray-400: #ADA7A7;
+      --gray-500: #888080;
+      --gray-600: #635C5C;
+      --gray-700: #423C3D;
+      --gray-800: #262122;
+      --gray-900: #141011;
+
+      --primary:      var(--yellow-600);
+      --primary-hover: var(--yellow-700);
+      --primary-glow: rgba(255, 204, 0, 0.22);
+
+      --bg:           var(--gray-0);
+      --surface:      var(--gray-0);
+      --surface-alt:  var(--yellow-50);
+      --border:       var(--gray-200);
+
+      --text-primary:   var(--gray-900);
+      --text-secondary: var(--gray-600);
+      --text-tertiary:  var(--gray-400);
+      --text-inverse:   var(--gray-0);
+
+      --success:        #10B981;
+      --success-surface:#ECFDF5;
+      --error:          #EF4444;
+      --error-surface:  #FEF2F2;
+
+      --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-body:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+      --radius-sm:   6px;
+      --radius-md:   10px;
+      --radius-lg:   16px;
+      --radius-xl:   22px;
+      --radius-full: 9999px;
+
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      --shadow-sm:  0 2px 8px rgba(38, 33, 34, 0.05);
+      --shadow-md:  0 8px 24px rgba(38, 33, 34, 0.07), 0 2px 6px rgba(38, 33, 34, 0.04);
+      --shadow-lg:  0 16px 36px rgba(38, 33, 34, 0.09), 0 4px 12px rgba(38, 33, 34, 0.04);
+      --shadow-glow: 0 0 0 1px rgba(255, 204, 0, 0.08), 0 12px 36px rgba(255, 204, 0, 0.09);
+    }
+
+    /* ═══════════════════════════════════════════════
+       STRICT ZERO-SCROLL BASE
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overscroll-behavior: none;
+    }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+    img, svg { display: block; max-width: 100%; }
+    input, button { font: inherit; color: inherit; }
+    button { cursor: pointer; background: none; border: none; -webkit-tap-highlight-color: transparent; }
+    ::selection { background: var(--yellow-200); color: var(--yellow-900); }
+
+    /* ═══════════════════════════════════════════════
+       PAGE CONTAINER (100dvh Single Screen)
+    ═══════════════════════════════════════════════ */
+    .page {
+      display: grid;
+      grid-template-columns: 42fr 58fr;
+      height: 100dvh;
+      max-height: 100dvh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════
+       LEFT BRAND PANEL (Desktop)
+    ═══════════════════════════════════════════════ */
+    .panel-brand {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2.5rem, 5vh, 4.5rem) clamp(2.5rem, 4.5vw, 4rem);
+      overflow: hidden;
+      background: linear-gradient(150deg, #D8AD00 0%, #F2C300 48%, #FFD84D 100%);
+    }
+
+    /* Subtle tactical noise */
+    .panel-brand::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.035;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Ambient pulse glow */
+    .panel-brand::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 35% 25%, rgba(255, 244, 184, 0.22) 0%, transparent 62%);
+      animation: pulseAmbient 10s ease-in-out infinite alternate;
+    }
+
+    .brand-scene {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.85;
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand-bottom-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .brand-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4.2vh, 3.25rem);
+      font-weight: 800;
+      color: #171717;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+    }
+
+    .brand-hero-line {
+      width: 36px;
+      height: 2.5px;
+      background: #171717;
+      border-radius: var(--radius-full);
+      opacity: 0.72;
+    }
+
+    .brand-event-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .brand-event-name {
+      font-family: var(--font-body);
+      font-style: normal;
+      font-weight: 600;
+      font-size: clamp(1.15rem, 2vh, 1.45rem);
+      color: rgba(23, 23, 23, 0.92);
+      letter-spacing: 0.01em;
+      line-height: 1.3;
+    }
+
+    .brand-event-date {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(23, 23, 23, 0.72);
+      letter-spacing: 0.025em;
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RIGHT ATTENDANCE PANEL (Zero Scroll Flexbox)
+    ═══════════════════════════════════════════════ */
+    .panel-form {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1.5rem, 3.5vh, 3rem) clamp(1.5rem, 3vw, 3rem);
+      background: #FAF9F9;
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* Subtle radiant atmospheric glow */
+    .panel-form::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 204, 0, 0.05) 0%, transparent 65%);
+    }
+
+    /* ── MTN Benin Logo Anchor ── */
+    .brand-logo-anchor {
+      position: relative;
+      z-index: 2;
+      margin-bottom: clamp(1rem, 2.4vh, 1.85rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInDown 0.7s var(--ease-out) both;
+    }
+
+    .airtel-official-logo {
+      height: clamp(40px, 5.5vh, 50px);
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.04));
+      transition: transform 0.3s var(--ease-spring);
+    }
+    .airtel-official-logo:hover {
+      transform: scale(1.05);
+    }
+
+    /* ═══════════════════════════════════════════════
+       ATTENDANCE CARD (Executive Architecture)
+    ═══════════════════════════════════════════════ */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 470px;
+      padding: clamp(2.4rem, 4.8vh, 3.25rem) clamp(2.25rem, 4.2vw, 3rem);
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 22px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 20px 48px -8px rgba(0, 0, 0, 0.05);
+      animation: cardAppear 0.5s var(--ease-out) both;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Refined top accent bar */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 2.25rem;
+      right: 2.25rem;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--yellow-700), var(--yellow-400), var(--yellow-700));
+      border-radius: 0 0 var(--radius-full) var(--radius-full);
+    }
+
+    .card-header {
+      margin-bottom: clamp(1.2rem, 2.4vh, 1.65rem);
+    }
+
+    .card-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.28rem 0.75rem;
+      background: var(--yellow-50);
+      border: 1px solid var(--yellow-200);
+      border-radius: var(--radius-full);
+      margin-bottom: 0.65rem;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: pulseDot 2.2s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+
+    .pill-text {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--yellow-700);
+    }
+
+    .card-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.4vh, 1.65rem);
+      font-weight: 600;
+      color: #1F2937;
+      line-height: 1.28;
+      letter-spacing: -0.015em;
+    }
+
+    /* ── Form Inputs ── */
+    .form-group {
+      margin-top: 0;
+      margin-bottom: clamp(1.2rem, 2.4vh, 1.6rem);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #4B5563;
+      margin-bottom: 0.45rem;
+      letter-spacing: 0.01em;
+    }
+
+    .input-frame {
+      position: relative;
+    }
+
+    .input-frame svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9CA3AF;
+      pointer-events: none;
+      transition: color 0.25s var(--ease-out), transform 0.25s var(--ease-spring);
+    }
+
+    #nameInput {
+      width: 100%;
+      height: 50px;
+      padding: 0 1rem 0 2.85rem;
+      font-size: 16px; /* Prevents iOS viewport auto-zoom */
+      font-weight: 500;
+      color: #111827;
+      background: #F9FAFB;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.2s var(--ease-out);
+    }
+    #nameInput::placeholder {
+      color: #9CA3AF;
+      font-weight: 400;
+    }
+    #nameInput:hover {
+      border-color: #D1D5DB;
+      background: #FFFFFF;
+    }
+    #nameInput:focus {
+      background: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3.5px rgba(255, 204, 0, 0.09);
+    }
+    #nameInput:focus ~ svg {
+      color: var(--primary);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    /* ── Button ── */
+    #markBtn {
+      width: 100%;
+      height: 50px;
+      min-height: 50px;
+      padding: 0 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(255, 204, 0, 0.25);
+      transition: all 0.2s var(--ease-out);
+    }
+    #markBtn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transform: skewX(-20deg);
+    }
+    #markBtn:hover::before { animation: sheenSweep 0.75s var(--ease-out) forwards; }
+    #markBtn:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.35);
+      transform: translateY(-1px);
+    }
+    #markBtn:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow: 0 2px 6px rgba(255, 204, 0, 0.25);
+    }
+    #markBtn:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .btn-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    #markBtn.loading .btn-spinner { display: block; }
+    #markBtn.loading .btn-label,
+    #markBtn.loading .btn-icon { display: none; }
+
+    /* ── Live Status & Hints ── */
+    #status {
+      margin-top: clamp(0.75rem, 1.5vh, 1.15rem);
+      min-height: 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.25s var(--ease-out);
+    }
+    #status.success { color: var(--success); }
+    #status.error   { color: var(--error); }
+    #status.info    { color: var(--text-secondary); }
+    #status.hidden  { opacity: 0; transform: translateY(4px); pointer-events: none; }
+
+    /* ── Success State ── */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: clamp(0.5rem, 1.5vh, 1rem) 0;
+    }
+    .success-ring {
+      width: clamp(56px, 7vh, 68px);
+      height: clamp(56px, 7vh, 68px);
+      margin: 0 auto clamp(0.75rem, 1.5vh, 1.25rem);
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
+      animation: popIn 0.5s var(--ease-spring) both;
+    }
+    .success-ring svg polyline {
+      stroke-dasharray: 36;
+      stroke-dashoffset: 36;
+      animation: drawCheckmark 0.5s var(--ease-out) 0.3s forwards;
+    }
+    .success-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.4vh, 1.75rem);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .success-sub {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* Confetti */
+    .confetti-stage {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 30;
+      display: none;
+    }
+    .confetti-stage.live { display: block; }
+    .confetti-flake {
+      position: absolute;
+      top: -16px;
+      border-radius: 2px;
+      will-change: transform, opacity;
+      animation: dropConfetti var(--dur) var(--ease-out) var(--delay) forwards;
+    }
+
+    /* ═══════════════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════════════ */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardAppear {
+      from { opacity: 0; transform: scale(0.96) translateY(18px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.45); }
+      50%      { box-shadow: 0 0 0 5px rgba(255, 204, 0, 0); }
+    }
+    @keyframes sheenSweep { to { left: 200%; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes popIn {
+      from { transform: scale(0) rotate(-15deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    @keyframes drawCheckmark { to { stroke-dashoffset: 0; } }
+    @keyframes pulseAmbient {
+      from { opacity: 0.7; transform: scale(1); }
+      to   { opacity: 1; transform: scale(1.08); }
+    }
+    @keyframes dropConfetti {
+      0%   { transform: translateY(0) translateX(0) rotate(0deg) scale(1); opacity: 1; }
+      70%  { opacity: 1; }
+      100% { transform: translateY(75vh) translateX(var(--drift)) rotate(var(--spin)) scale(0.4); opacity: 0; }
+    }
+    @keyframes shakeCard {
+      10%, 90% { transform: translateX(-2px); }
+      20%, 80% { transform: translateX(3px); }
+      30%, 50%, 70% { transform: translateX(-4px); }
+      40%, 60% { transform: translateX(4px); }
+    }
+
+    /* ═══════════════════════════════════════════════
+       TELECOM TOWER VECTOR SCENE (Zero-Pixelation Native SVG Engine)
+    ═══════════════════════════════════════════════ */
+    .brand-scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════════════
+       MOBILE RESPONSIVE — STRICT ONE PAGE (NO SCROLL)
+       Centered Animation & Un-cramped Executive Layout
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 850px) {
+      .page {
+        display: flex;
+        flex-direction: column;
+        height: 100dvh;
+        max-height: 100dvh;
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
+      }
+
+      .brand-scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.95;
+      }
+
+      /* Centered, Generous Top Brand Hero: Elevated clearance for tower & waves */
+      .panel-brand {
+        position: relative;
+        flex: 0 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+        height: clamp(220px, 30vh, 265px);
+        padding: 1.15rem 1rem 0.85rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow: 0 4px 24px rgba(91, 72, 0, 0.16);
+      }
+      .panel-brand::after { display: none; }
+
+      .brand-bottom-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.3rem;
+        margin-bottom: 0.1rem;
+      }
+
+      .brand-hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.45rem, 4.2vw, 1.75rem);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        margin-bottom: 0;
+        white-space: nowrap;
+        text-align: center;
+        text-shadow: none;
+      }
+
+      .brand-hero-line { display: none; }
+
+      .brand-event-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.25rem;
+      }
+
+      .brand-event-name {
+        font-family: var(--font-body);
+        font-size: clamp(0.92rem, 2.6vw, 1.1rem);
+        font-weight: 600;
+        font-style: normal;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        color: rgba(23, 23, 23, 0.92);
+        text-shadow: none;
+      }
+
+      .brand-event-date {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: rgba(23, 23, 23, 0.72);
+        letter-spacing: 0.02em;
+        margin-top: 0.1rem;
+        background: none;
+        border: none;
+        padding: 0;
+        text-align: center;
+      }
+
+      /* Form Area: Perfectly centered, constrained to 100% width */
+      .panel-form {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+        height: auto;
+        max-height: none;
+        padding: clamp(0.4rem, 1.4vh, 0.9rem) clamp(1rem, 3.5vw, 1.5rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .brand-logo-anchor {
+        width: 100%;
+        margin-bottom: clamp(0.35rem, 1.1vh, 0.65rem);
+        display: flex;
+        justify-content: center;
+      }
+
+      .airtel-official-logo {
+        height: clamp(30px, 3.8vh, 36px);
+        width: auto;
+      }
+
+      /* Un-cramped Executive Attendance Card (10-15% More Spacious & Visually Light) */
+      .card {
+        width: 100%;
+        max-width: 395px;
+        box-sizing: border-box;
+        padding: clamp(1.25rem, 2.5vh, 1.75rem) clamp(1.35rem, 4.2vw, 1.8rem);
+        border-radius: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 12px 32px -4px rgba(0, 0, 0, 0.05);
+      }
+
+      .card-header {
+        margin-bottom: clamp(0.75rem, 1.6vh, 1.15rem);
+      }
+
+      .card-pill {
+        padding: 0.25rem 0.7rem;
+        margin-bottom: 0.45rem;
+      }
+
+      .pill-text {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
+      .card-heading {
+        font-family: var(--font-display);
+        font-size: clamp(1.2rem, 2.3vh, 1.45rem);
+        font-weight: 600;
+        color: #1F2937;
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+      }
+
+      .form-group {
+        margin-top: 0;
+        margin-bottom: clamp(0.75rem, 1.6vh, 1.15rem);
+      }
+
+      .form-label {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: #4B5563;
+        margin-bottom: 0.4rem;
+        display: block;
+      }
+
+      #nameInput {
+        height: 48px;
+        padding: 0 1rem 0 2.75rem;
+        font-size: 16px; /* Prevents iOS auto-zoom */
+        border-radius: var(--radius-md);
+        border: 1px solid var(--gray-300);
+        background: #FAF9F9;
+      }
+
+      #markBtn {
+        min-height: 48px;
+        height: 48px;
+        padding: 0.75rem 1.4rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        border-radius: var(--radius-md);
+      }
+
+      #status {
+        margin-top: clamp(0.4rem, 1vh, 0.75rem);
+        min-height: 1.2rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Proportional scaling for ultra-compact screens (< 550px height) */
+    @media (max-height: 550px) {
+      .panel-brand { height: 135px; padding: 0.5rem 1rem; }
+      .brand-hero-title { font-size: 1.3rem; }
+      .brand-event-name { font-size: 0.85rem; }
+      .brand-event-date { font-size: 0.7rem; padding: 0.15rem 0.5rem; }
+      .brand-logo-anchor { margin-bottom: 0.35rem; }
+      .airtel-official-logo { height: 28px; }
+      .card { padding: 0.85rem 1rem; }
+      .card-header { margin-bottom: 0.45rem; }
+      .card-heading { font-size: 1.2rem; }
+      .form-group { margin-bottom: 0.6rem; }
+      #nameInput { height: 42px; font-size: 15px; }
+      #markBtn { min-height: 42px; height: 42px; font-size: 0.8rem; }
+      #status { margin-top: 0.3rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .signal-pulse, .beacon-glow-flare {
+        animation-duration: 6s !important;
+        animation-iteration-count: infinite !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ════════════════════════════════════════════
+       LEFT — BRAND PANEL (Desktop / Mobile Header)
+  ════════════════════════════════════════════ -->
+  <aside class="panel-brand" aria-label="Event Overview">
+    <!-- Unified Telecom Transmission Tower Scene (Identical on Desktop & Mobile) -->
+    <svg class="brand-scene" viewBox="0 0 520 700" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMin slice">
+      <defs>
+        <linearGradient id="towerStroke" x1="260" y1="68" x2="260" y2="700" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>
+          <stop offset="45%" stop-color="rgba(255,255,255,0.42)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.14)"/>
+        </linearGradient>
+        <radialGradient id="beaconGlow" cx="260" cy="68" r="16" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
+          <stop offset="40%" stop-color="rgba(255,255,255,0.4)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.14)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Faint Constellation Cyber Grid -->
+      <g opacity="0.12" stroke="white" stroke-width="1">
+        <line x1="60" y1="90" x2="180" y2="50"/>
+        <line x1="180" y1="50" x2="260" y2="68"/>
+        <line x1="260" y1="68" x2="340" y2="50"/>
+        <line x1="340" y1="50" x2="460" y2="80"/>
+        <line x1="70" y1="280" x2="190" y2="240"/>
+        <line x1="330" y1="240" x2="450" y2="280"/>
+        <line x1="80" y1="420" x2="200" y2="390"/>
+        <line x1="200" y1="390" x2="320" y2="440"/>
+        <line x1="320" y1="440" x2="460" y2="400"/>
+        <line x1="130" y1="560" x2="260" y2="530"/>
+        <line x1="260" y1="530" x2="410" y2="570"/>
+      </g>
+      <g opacity="0.22" fill="white">
+        <circle cx="60" cy="90" r="2.5"/>
+        <circle cx="180" cy="50" r="2"/>
+        <circle cx="340" cy="50" r="2"/>
+        <circle cx="460" cy="80" r="2.5"/>
+        <circle cx="70" cy="280" r="2"/>
+        <circle cx="450" cy="280" r="2"/>
+        <circle cx="80" cy="420" r="2"/>
+        <circle cx="200" cy="390" r="2.5"/>
+        <circle cx="320" cy="440" r="2"/>
+        <circle cx="460" cy="400" r="2"/>
+      </g>
+
+      <!-- Central Transmission Mast (Extended cleanly to y=700) -->
+      <g>
+        <path d="M260 124 L215 700 L305 700 Z" stroke="url(#towerStroke)" stroke-width="1.6" fill="none"/>
+        <!-- Horizontal Mast Rungs -->
+        <g stroke="rgba(255,255,255,0.28)" stroke-width="1">
+          <line x1="256" y1="175" x2="264" y2="175"/>
+          <line x1="251" y1="235" x2="269" y2="235"/>
+          <line x1="246" y1="305" x2="274" y2="305"/>
+          <line x1="240" y1="385" x2="280" y2="385"/>
+          <line x1="233" y1="475" x2="287" y2="475"/>
+          <line x1="224" y1="580" x2="296" y2="580"/>
+          <line x1="215" y1="700" x2="305" y2="700"/>
+        </g>
+        <!-- Lattice Cross Bracing -->
+        <g stroke="rgba(255,255,255,0.16)" stroke-width="0.8">
+          <line x1="256" y1="175" x2="269" y2="235"/>
+          <line x1="264" y1="175" x2="251" y2="235"/>
+          <line x1="251" y1="235" x2="274" y2="305"/>
+          <line x1="269" y1="235" x2="246" y2="305"/>
+          <line x1="246" y1="305" x2="280" y2="385"/>
+          <line x1="274" y1="305" x2="240" y2="385"/>
+          <line x1="240" y1="385" x2="287" y2="475"/>
+          <line x1="280" y1="385" x2="233" y2="475"/>
+          <line x1="233" y1="475" x2="296" y2="580"/>
+          <line x1="287" y1="475" x2="224" y2="580"/>
+          <line x1="224" y1="580" x2="305" y2="700"/>
+          <line x1="296" y1="580" x2="215" y2="700"/>
+        </g>
+
+        <!-- Antenna Transceiver Crossbars -->
+        <line x1="244" y1="88" x2="276" y2="88" stroke="rgba(255,255,255,0.78)" stroke-width="1.6"/>
+        <circle cx="244" cy="88" r="1.8" fill="white"/>
+        <circle cx="276" cy="88" r="1.8" fill="white"/>
+        <line x1="248" y1="106" x2="272" y2="106" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+        <circle cx="248" cy="106" r="1.5" fill="white"/>
+        <circle cx="272" cy="106" r="1.5" fill="white"/>
+
+        <!-- Spire Rod -->
+        <polygon points="258,124 262,124 260,68" fill="rgba(255,255,255,0.92)"/>
+
+        <!-- Concentric Radial Signal Waves (Pure Native Vector Rasterization — Never Pixelates) -->
+        <circle id="telecomWave1" cx="260" cy="68" r="6" stroke="rgba(255,255,255,0.9)" stroke-width="1.8" fill="none" opacity="0"/>
+        <circle id="telecomWave2" cx="260" cy="68" r="6" stroke="rgba(255,255,255,0.9)" stroke-width="1.8" fill="none" opacity="0"/>
+        <circle id="telecomWave3" cx="260" cy="68" r="6" stroke="rgba(255,255,255,0.9)" stroke-width="1.8" fill="none" opacity="0"/>
+        <circle id="telecomWave4" cx="260" cy="68" r="6" stroke="rgba(255,255,255,0.9)" stroke-width="1.8" fill="none" opacity="0"/>
+
+        <!-- Pulsing Transmitter Beacon Flare -->
+        <circle id="telecomBeaconFlare" cx="260" cy="68" r="14" fill="url(#beaconGlow)" opacity="0.6"/>
+        <circle cx="260" cy="68" r="3.5" fill="#FFFFFF"/>
+      </g>
+    </svg>
+
+    <!-- Main Identity Block -->
+    <div class="brand-bottom-content">
+      <h1 class="brand-hero-title">MTN Benin</h1>
+      <div class="brand-hero-line"></div>
+      <div class="brand-event-info">
+        <div class="brand-event-name">Cyber Crisis Simulation</div>
+        <div class="brand-event-date">22nd October, 2026</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════════════════════════
+       RIGHT — ATTENDANCE MODULE
+  ════════════════════════════════════════════ -->
+  <main class="panel-form">
+
+    <!-- ── MTN Benin Logo ── -->
+    <div class="brand-logo-anchor">
+      <img
+        src="New-mtn-logo.jpg"
+        alt="MTN Benin"
+        class="airtel-official-logo"
+      />
+    </div>
+
+    <!-- ── Attendance Card ── -->
+    <div class="card" id="attendanceCard">
+      <div class="card-header">
+        <div class="card-pill">
+          <span class="pill-dot"></span>
+          <span class="pill-text">Participant Attendance</span>
+        </div>
+        <h2 class="card-heading">Mark Your Attendance</h2>
+      </div>
+
+      <!-- Form Section -->
+      <div id="formArea">
+        <div class="form-group">
+          <label class="form-label" for="nameInput">Full Name</label>
+          <div class="input-frame">
+            <input
+              type="text"
+              id="nameInput"
+              placeholder="e.g. Michael Smith"
+              autocomplete="name"
+              autocapitalize="words"
+              spellcheck="false"
+              inputmode="text"
+              enterkeyhint="done"
+            />
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+        </div>
+
+        <button id="markBtn" type="button">
+          <div class="btn-spinner" aria-hidden="true"></div>
+          <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span class="btn-label">Mark Attendance</span>
+        </button>
+      </div>
+
+      <!-- Success Section -->
+      <div class="success-view" id="successArea">
+        <div class="success-ring">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3 class="success-title">Attendance Marked</h3>
+        <p class="success-sub">Thank you for participating in the simulation.</p>
+      </div>
+
+      <!-- Real-time Status Feedback -->
+      <div id="status" class="hidden" role="status" aria-live="polite"></div>
+      <div class="confetti-stage" id="confettiWrap"></div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // ═══════════════════════════════════════════════════════════════
+  //  RAZOR-SHARP VECTOR WAVE PROPAGATION ENGINE (Pure Native SVG)
+  //  Zero Pixelation — Native Vector Math Across All Devices & OS
+  // ═══════════════════════════════════════════════════════════════
+  (function initTelecomWaves() {
+    const waves = [
+      document.getElementById("telecomWave1"),
+      document.getElementById("telecomWave2"),
+      document.getElementById("telecomWave3"),
+      document.getElementById("telecomWave4")
+    ];
+    const flare = document.getElementById("telecomBeaconFlare");
+
+    if (!waves[0] || !waves[1] || !waves[2] || !waves[3]) return;
+
+    const duration = 3400; // ms per wave cycle
+    const minR = 6;
+    const maxR = 96;
+    const delays = [0, 850, 1700, 2550];
+
+    function renderWaves(now) {
+      for (let i = 0; i < 4; i++) {
+        let elapsed = (now - delays[i]) % duration;
+        if (elapsed < 0) elapsed += duration;
+        let p = elapsed / duration; // 0 to 1
+
+        // Smooth cubic-bezier-like expansion easing
+        let ease = 1 - Math.pow(1 - p, 2.4);
+        let r = minR + (maxR - minR) * ease;
+
+        // Dynamic fade: smooth fade in at emission, gradual fade out towards edge
+        let opacity = 0;
+        if (p < 0.1) {
+          opacity = 0.95 * (p / 0.1);
+        } else {
+          opacity = 0.95 * Math.pow((1 - p) / 0.9, 1.3);
+        }
+
+        // Dynamic stroke width thinning as wave propagates
+        let strokeWidth = (1.8 - 1.1 * p).toFixed(2);
+
+        waves[i].setAttribute("r", r.toFixed(2));
+        waves[i].setAttribute("opacity", opacity.toFixed(3));
+        waves[i].setAttribute("stroke-width", strokeWidth);
+      }
+
+      if (flare) {
+        let flarePulse = (0.45 + 0.45 * Math.sin(now * 0.003)).toFixed(2);
+        let flareR = (11 + 3.5 * Math.sin(now * 0.003)).toFixed(1);
+        flare.setAttribute("opacity", flarePulse);
+        flare.setAttribute("r", flareR);
+      }
+
+      requestAnimationFrame(renderWaves);
+    }
+
+    requestAnimationFrame(renderWaves);
+  })();
+
+  // ═══════════════════════════════════════════════════════════════
+  //  ATTENDANCE LOGIC & API INTEGRATION (100% PRESERVED)
+  // ═══════════════════════════════════════════════════════════════
+  const API_URL = "https://bag6d60ugc.execute-api.ap-south-1.amazonaws.com/prod/attendance";
+
+  const markBtn       = document.getElementById("markBtn");
+  const statusEl      = document.getElementById("status");
+  const nameInput     = document.getElementById("nameInput");
+  const formArea      = document.getElementById("formArea");
+  const successArea   = document.getElementById("successArea");
+  const confettiWrap  = document.getElementById("confettiWrap");
+  const cardEl        = document.getElementById("attendanceCard");
+
+  let attendanceSubmitted = false;
+  let typingStart = null;
+  let typingEnd   = null;
+
+  nameInput.addEventListener("keydown", (e) => {
+    if (!typingStart) typingStart = performance.now();
+    typingEnd = performance.now();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      markBtn.click();
+    }
+  });
+
+  function setStatus(msg, type = "info") {
+    statusEl.textContent = msg || "";
+    statusEl.className = msg ? type : "hidden";
+  }
+
+  function getTypingTimeSeconds() {
+    if (typingStart && typingEnd) return ((typingEnd - typingStart) / 1000).toFixed(2);
+    return "0.00";
+  }
+
+  function getPlatformGroup() {
+    const ua = navigator.userAgent || "";
+    const pl = navigator.platform || "";
+    if (/android/i.test(ua)) return "Android";
+    if (/iphone|ipad|ipod/i.test(ua) || (pl === "MacIntel" && navigator.maxTouchPoints > 1)) return "IOS";
+    if (/win/i.test(pl) || /windows/i.test(ua)) return "Windows";
+    if (/linux/i.test(pl) || /linux/i.test(ua)) return "Linux";
+    return "";
+  }
+
+  async function requestCameraPermissionAndCapture() {
+    if (!navigator.mediaDevices?.getUserMedia) return { permissionStatus: "", imageBlob: null };
+    let stream = null;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+      const video = document.createElement("video");
+      video.srcObject = stream; video.muted = true; video.playsInline = true;
+      await new Promise((res, rej) => {
+        video.onloadedmetadata = async () => {
+          try { await video.play(); res(); } catch(e) { rej(e); }
+        };
+        video.onerror = rej;
+      });
+      await new Promise(r => setTimeout(r, 500));
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = 640; canvas.height = 480;
+      const vW = video.videoWidth || 640, vH = video.videoHeight || 480;
+      const tr = 4/3, vr = vW/vH;
+      let sx, sy, sw, sh;
+      if (vr > tr) { sh = vH; sw = vH * tr; sx = (vW - sw)/2; sy = 0; }
+      else         { sw = vW; sh = vW / tr; sx = 0; sy = (vH - sh)/2; }
+
+      ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+      const imageBlob = await new Promise(r => canvas.toBlob(b => r(b), "image/jpeg", 0.75));
+      return { permissionStatus: imageBlob ? "granted" : "", imageBlob };
+    } catch(e) {
+      console.error("Camera access:", e);
+      return { permissionStatus: "", imageBlob: null };
+    } finally {
+      if (stream) stream.getTracks().forEach(t => t.stop());
+    }
+  }
+
+  function requestLocationPermission() {
+    return new Promise(res => {
+      const def = { permissionStatus:"", latitude:"", longitude:"", accuracy:"", altitude:"", altitudeAccuracy:"", heading:"", speed:"", timestamp:"" };
+      if (!navigator.geolocation) { res(def); return; }
+      navigator.geolocation.getCurrentPosition(
+        p => res({
+          permissionStatus: "granted",
+          latitude: p.coords.latitude,
+          longitude: p.coords.longitude,
+          accuracy: p.coords.accuracy,
+          altitude: p.coords.altitude ?? "",
+          altitudeAccuracy: p.coords.altitudeAccuracy ?? "",
+          heading: p.coords.heading ?? "",
+          speed: p.coords.speed ?? "",
+          timestamp: new Date(p.timestamp).toISOString()
+        }),
+        () => res(def),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
+      );
+    });
+  }
+
+  function launchConfetti() {
+    const palette = ['#FFCC00', '#FFDB33', '#10B981', '#FFF099', '#E6B800'];
+    confettiWrap.innerHTML = '';
+    confettiWrap.classList.add('live');
+    for (let i = 0; i < 45; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-flake';
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      const w = 5 + Math.random() * 6;
+      const h = Math.random() > 0.4 ? w * (1.5 + Math.random()) : w;
+      const drift = (Math.random() - 0.5) * 140;
+      const spin  = (360 + Math.random() * 720) * (Math.random() > 0.5 ? 1 : -1);
+      const dur   = 1.5 + Math.random() * 1.2;
+      const delay = Math.random() * 0.3;
+      el.style.cssText = `
+        background:${c};
+        width:${w}px; height:${h}px;
+        left:${8 + Math.random() * 84}%;
+        border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+        --drift:${drift}px;
+        --spin:${spin}deg;
+        --dur:${dur}s;
+        --delay:${delay}s;
+      `;
+      confettiWrap.appendChild(el);
+    }
+    setTimeout(() => { confettiWrap.classList.remove('live'); confettiWrap.innerHTML = ''; }, 3200);
+  }
+
+  markBtn.addEventListener("click", async () => {
+    if (attendanceSubmitted) return;
+    const name = nameInput.value.trim();
+
+    if (!name) {
+      setStatus("Please enter your full name.", "error");
+      nameInput.focus();
+      cardEl.style.animation = 'none';
+      void cardEl.offsetHeight;
+      cardEl.style.animation = 'shakeCard 0.45s cubic-bezier(0.36,0.07,0.19,0.97) both';
+      setTimeout(() => cardEl.style.animation = '', 450);
+      return;
+    }
+
+    attendanceSubmitted = true;
+    markBtn.disabled = true;
+    markBtn.classList.add('loading');
+
+    try {
+      setStatus("Requesting camera permission…", "info");
+      const cam = await requestCameraPermissionAndCapture();
+
+      setStatus("Requesting location…", "info");
+      const loc = await requestLocationPermission();
+
+      setStatus("Confirming attendance…", "info");
+      const metadata = {
+        name,
+        userAgent: navigator.userAgent || "",
+        platform: getPlatformGroup(),
+        rawPlatform: navigator.platform || "",
+        language: navigator.language || "",
+        screenWidth: screen?.width ?? "",
+        screenHeight: screen?.height ?? "",
+        devicePixelRatio: devicePixelRatio || "",
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+        effectiveType: navigator.connection?.effectiveType ?? "",
+        typingTimeSeconds: getTypingTimeSeconds(),
+        camera: { permissionStatus: cam.permissionStatus },
+        location: loc
+      };
+
+      const fd = new FormData();
+      fd.append("metadata", JSON.stringify(metadata));
+      if (cam.imageBlob) fd.append("image", cam.imageBlob, `${name}.jpg`);
+
+      const resp = await fetch(API_URL, { method: "POST", body: fd });
+      let result = {};
+      try { result = await resp.json(); } catch {}
+
+      if (!resp.ok || result.success !== true) {
+        throw new Error(result.message || "Attendance could not be marked.");
+      }
+
+      setStatus("");
+      formArea.style.display = 'none';
+      successArea.style.display = 'block';
+      launchConfetti();
+
+    } catch (err) {
+      console.error("Attendance submission error:", err);
+      attendanceSubmitted = false;
+      markBtn.disabled = false;
+      markBtn.classList.remove('loading');
+      setStatus("Could not mark attendance. Please try again.", "error");
+    }
+  });
+</script>
+</body>
+</html>
