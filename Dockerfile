@@ -1,10 +1,10 @@
 # ─────────────────────────────────────────────────────────────
-#  Omega 4.0 — Event-Driven PPT Generator Lambda
+#  Omega 5.0 — Event-Driven PPT Generator Lambda
 #  Recommended deployment: AWS Lambda Container Image (ECR)
 #  Rationale: opencv + numpy + pillow + lxml exceed the 250 MB
 #             unzipped limit for .zip-based Lambda deployments.
 # ─────────────────────────────────────────────────────────────
-FROM public.ecr.aws/lambda/python:3.12
+FROM public.ecr.aws/lambda/python:3.13
 
 # System libraries for OpenCV headless + font rendering
 RUN dnf install -y \
