@@ -367,7 +367,7 @@ def lambda_handler(event, context):
     raw_name = metadata.get("name", "unknown")
     person = safe_name(raw_name)
 
-    now = datetime.datetime.utcnow().isoformat() + "Z"
+    now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).isoformat() + "Z"
     date_str = now[:10]
 
     ip = headers.get("x-forwarded-for", "").split(",")[0].strip()

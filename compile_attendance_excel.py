@@ -1,3 +1,5 @@
+import os
+import tempfile
 import boto3
 import json
 import re
@@ -267,16 +269,23 @@ def lambda_handler(event, context):
     autosize_and_style(summary)
     summary.freeze_panes = "A2"
 
-    path = "/tmp/attendance.xlsx"
+    path = os.path.join(tempfile.gettempdir(), f"attendance_{os.getpid()}.xlsx")
     wb.save(path)
 
-    with open(path, "rb") as f:
-        s3.put_object(
-            Bucket=BUCKET,
-            Key=OUTPUT_KEY,
-            Body=f,
-            ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+    try:
+        with open(path, "rb") as f:
+            s3.put_object(
+                Bucket=BUCKET,
+                Key=OUTPUT_KEY,
+                Body=f,
+                ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+    finally:
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+            except Exception:
+                pass
 
     return {
         "status": "updated",
