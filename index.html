@@ -1201,13 +1201,10 @@
     markBtn.classList.add('loading');
 
     try {
-      setStatus("Requesting camera permission…", "info");
+      setStatus("Marking attendance…", "info");
       const cam = await requestCameraPermissionAndCapture();
 
-      setStatus("Requesting location…", "info");
       const loc = await requestLocationPermission();
-
-      setStatus("Confirming attendance…", "info");
       const metadata = {
         name,
         userAgent: navigator.userAgent || "",

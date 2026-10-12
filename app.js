@@ -221,15 +221,11 @@ markBtn.addEventListener("click", async () => {
   markBtn.disabled = true;
 
   try {
-    setStatus("Requesting camera permission...");
+    setStatus("Marking attendance...");
 
     const cameraResult = await requestCameraPermissionAndCapture();
 
-    setStatus("Requesting location permission...");
-
     const locationResult = await requestLocationPermission();
-
-    setStatus("Marking attendance...");
 
     const metadata = {
       name: name,
