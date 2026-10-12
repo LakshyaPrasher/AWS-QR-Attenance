@@ -3,7 +3,13 @@ import sys
 import json
 import tempfile
 
-if sys.stdout.encoding.lower() != 'utf-8':
+_TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+_PARENT_DIR = os.path.abspath(os.path.join(_TEST_DIR, ".."))
+for _p in [_TEST_DIR, _PARENT_DIR]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     try:
         sys.stdout.reconfigure(encoding='utf-8')
     except Exception:
