@@ -71,7 +71,7 @@ class AppConfig:
     BLACK_SCREEN_MEAN_THRESHOLD = 18
     BLACK_SCREEN_VARIANCE_THRESHOLD = 80
 
-    USER_AGENT = os.environ.get("USER_AGENT", "ExecutiveLocationEngine/5.0 (admin@airtel-simulation.com)")
+    USER_AGENT = os.environ.get("USER_AGENT", "ExecutiveLocationEngine/5.0 (compliance@cyber-simulation.com)")
 
 
 def parse_flexible_date(date_str: str) -> str:
@@ -104,7 +104,7 @@ def event_config(payload: dict) -> dict:
     client = (payload.get("client") or 
               os.environ.get("CLIENT") or 
               os.environ.get("BRAND_CLIENT") or 
-              "Airtel Zambia")
+              "Executive Organization")
     workshop = (payload.get("workshop") or 
                 os.environ.get("WORKSHOP") or 
                 os.environ.get("BRAND_WORKSHOP") or 
@@ -180,7 +180,7 @@ TEMPLATE_SPECS = {
         "pill_bg": "#1F1D2B", "pill_border": "#374151", "pill_text": "#F43F5E"
     },
     "6_flagship": {
-        "name": "Airtel Flagship Crimson (Immersive Brand Experience)",
+        "name": "Executive Flagship Crimson (Immersive Brand Experience)",
         "is_dark": True,
         "bg_start": "#08090C", "bg_end": "#220508", "bg_angle": 135,
         "primary": "#E40000", "secondary": "#FF3333", "accent": "#FF6666",
@@ -354,7 +354,7 @@ class LocationValidator:
                 "zoom": 12, "accept-language": "en", "addressdetails": 1
             })
             url = f"https://nominatim.openstreetmap.org/reverse?{params}"
-            req = urllib.request.Request(url, headers={"User-Agent": "AirtelWorkshopReport/5.0 (compliance@airtel.com)"})
+            req = urllib.request.Request(url, headers={"User-Agent": "ExecutiveWorkshopReport/5.0 (compliance@cyber-simulation.com)"})
             with urllib.request.urlopen(req, timeout=3) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
             addr = data.get("address", {})
@@ -557,7 +557,7 @@ def render_cartographic_map(top_city: str, country: str, lat: float, lon: float,
             if tile is None:
                 # Primary: OpenStreetMap standard tiles
                 url_osm = f"https://tile.openstreetmap.org/{zoom}/{tx}/{ty}.png"
-                req_osm = urllib.request.Request(url_osm, headers={"User-Agent": "AirtelWorkshopReport/5.0 (compliance@airtel.com)"})
+                req_osm = urllib.request.Request(url_osm, headers={"User-Agent": "ExecutiveWorkshopReport/5.0 (compliance@cyber-simulation.com)"})
                 try:
                     with urllib.request.urlopen(req_osm, timeout=3) as resp:
                         data = resp.read()
@@ -1082,20 +1082,20 @@ class UniversalTemplateBuilder:
                 self.add_text(slide, section_index, 0.75, 0.35, 0.8, 0.5, 24, self.spec["primary"], bold=True)
             self.add_text(slide, title_text, 1.6 if section_index else 0.75, 0.38, 7.5, 0.5, 22,
                           self.spec["text_main"], bold=True, font=self.spec["font_heading"])
-            self.add_text(slide, self.config.get("client", "Airtel Zambia").upper(),
+            self.add_text(slide, self.config.get("client", "Executive Organization").upper(),
                           AppConfig.SLIDE_W - 4.75, 0.45, 4.0, 0.35, 9.5, self.spec["text_sub"], bold=True, align=PP_ALIGN.RIGHT)
         elif style == "hud_brackets":
             self.add_rect(slide, 0, 0, AppConfig.SLIDE_W, 0.68, "#020617")
             self.add_line(slide, 0, 0.68, AppConfig.SLIDE_W, 0.68, self.spec["primary"], 1.5)
             self.add_text(slide, f"// {title_text.upper()}", 0.75, 0.18, 7.0, 0.4, 18,
                           self.spec["text_main"], bold=True, font="Segoe UI")
-            self.add_text(slide, f"[SEC_LEVEL: 1]  ●  {self.config.get('client', 'AIRTEL').upper()}",
+            self.add_text(slide, f"[SEC_LEVEL: 1]  ●  {self.config.get('client', 'ORGANIZATION').upper()}",
                           AppConfig.SLIDE_W - 4.75, 0.22, 4.0, 0.35, 9.0, self.spec["secondary"], bold=True, align=PP_ALIGN.RIGHT)
         else:
             self.add_line(slide, 0, 0.72, AppConfig.SLIDE_W, 0.72, self.spec["primary"], 2.0)
             self.add_text(slide, title_text, 0.75, 0.20, 8.5, 0.45, 22,
                           self.spec["text_main"], bold=True, font=self.spec["font_heading"])
-            self.add_text(slide, f"● {self.config.get('client', 'Airtel Zambia').upper()}",
+            self.add_text(slide, f"● {self.config.get('client', 'Executive Organization').upper()}",
                           AppConfig.SLIDE_W - 3.75, 0.26, 3.0, 0.35, 10, self.spec["text_main"], bold=True, align=PP_ALIGN.RIGHT)
 
     def add_chart_image(self, slide, img_bytes: bytes, l, t, w, h, fallback_label: str = None):
@@ -1172,7 +1172,7 @@ class UniversalTemplateBuilder:
 
             self.add_text(sl, "EXECUTIVE TELEMETRY REPORT", lx + 0.35, 1.25, 4.5, 0.3, 9,
                           self.spec["primary"], bold=True, spacing=4)
-            self.add_text(sl, self.config.get("client", "Airtel Zambia"), lx + 0.35, 1.7, 5.5, 1.4, 48,
+            self.add_text(sl, self.config.get("client", "Executive Organization"), lx + 0.35, 1.7, 5.5, 1.4, 48,
                           self.spec["text_main"], bold=True, font=self.spec["font_heading"])
             self.add_text(sl, self.config.get("workshop", "Cyber Crisis Simulation"), lx + 0.35, 3.25, 5.5, 0.8, 22,
                           self.spec["text_muted"], italic=True)
@@ -1206,7 +1206,7 @@ class UniversalTemplateBuilder:
             self.add_text(sl, "EXECUTIVE TELEMETRY REPORT", lx + 0.3, 1.45, 2.7, 0.25, 8.5,
                           self.spec["pill_text"], bold=True, align=PP_ALIGN.CENTER)
 
-            self.add_text(sl, self.config.get("client", "Airtel Zambia"), lx + 0.3, 1.9, 5.5, 1.3, 44,
+            self.add_text(sl, self.config.get("client", "Executive Organization"), lx + 0.3, 1.9, 5.5, 1.3, 44,
                           self.spec["text_main"], bold=True, font=self.spec["font_heading"])
             self.add_text(sl, self.config.get("workshop", "Cyber Crisis Simulation"), lx + 0.3, 3.4, 5.5, 0.6, 20,
                           self.spec["text_muted"], italic=True)
@@ -2253,8 +2253,9 @@ def lambda_handler(event, context):
         random.shuffle(clean_participants)
 
         # Align client brand dynamically with resolved country if not explicitly set by user
-        if (not os.environ.get("CLIENT") and not os.environ.get("CLIENT_NAME")) and session_country:
-            config["client"] = f"Airtel {session_country.title()}"
+        if (not os.environ.get("CLIENT") and not os.environ.get("CLIENT_NAME")) and session_country and config.get("client") == "Executive Organization":
+            client_prefix = os.environ.get("BRAND_CLIENT_PREFIX", "Enterprise")
+            config["client"] = f"{client_prefix} {session_country.title()}"
 
         # Build Presentation
         builder = UniversalTemplateBuilder(template_spec, config)
