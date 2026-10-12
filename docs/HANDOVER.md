@@ -177,24 +177,17 @@ Implemented in `attendancehandler.py` (`normalize_location`):
 
 ## 7. How to Verify Everything (Test Suite Guide)
 
-Run these 4 verification scripts from `.
+Run the master test runner from `.
 
 ```powershell
-# 1. Verify Location Fallbacks (GPS, CloudFront, Timezone):
-py test_location_fallbacks.py
-# Expected output: ALL ATTENDANCEHANDLER LOCATION TESTS PASSED!
-
-# 2. Verify Platform Consolidation (Windows PC vs Linux):
-py test_platform_consolidation.py
-# Expected output: ALL PLATFORM CONSOLIDATION TESTS PASSED SUCCESSFULLY!
-
-# 3. Verify Slide Generation & Shape Integrity:
-py test_final_verification.py
-# Expected output: ALL TESTS PASSED WITH 100% PERFECTION!
-
-# 4. Verify Full End-to-End Pipeline & Slide Export:
-py test_full_pipeline.py
-# Expected output: ALL TESTS PASSED SUCCESSFULLY! DEPLOYMENT READY!
+py run_all_tests.py
+# Runs all 6 test suites across all 3 Lambda services (100% pass expected):
+# 1. test_location_fallbacks.py       -> Attendance Handler location cascade
+# 2. test_platform_consolidation.py   -> Platform consolidation & distinct Linux
+# 3. test_final_verification.py       -> 7-slide deck & coordinate clustering
+# 4. test_full_pipeline.py            -> Full Omega 5.0 pipeline & Swiss white theme
+# 5. test_nigeria_default.py          -> Production default config & Banana Island GPS
+# 6. test_excel_compiler.py           -> Attendance Excel compiler & S3 workbook generation
 ```
 
 ---

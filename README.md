@@ -134,3 +134,17 @@ aws lambda update-function-configuration \
 - **No Provisioned Concurrency**: Functions run on On-Demand concurrency covered under the AWS Free Tier (1,000,000 invocations & 3.2M compute seconds free/month).
 - **ECR Storage Zero-Creep**: Pushing with `:latest` replaces the active tag. Untagged images can be cleaned with an ECR Lifecycle rule (`expire untagged images > 1 day`).
 
+#### D. Running the Full Verification Test Suite
+Run the master test runner from the repository root:
+```bash
+py run_all_tests.py
+```
+This executes all 6 verification test suites covering all 3 AWS Lambda functions:
+1. `test_location_fallbacks.py`: Verifies `attendancehandler.py` 4-tier location cascade.
+2. `test_platform_consolidation.py`: Verifies `lambda_function.py` platform consolidation and distinct Linux.
+3. `test_final_verification.py`: Verifies `lambda_function.py` 7-slide deck generation and coordinate clustering.
+4. `test_full_pipeline.py`: Verifies `lambda_function.py` full S3 event pipeline and Swiss white theme.
+5. `test_nigeria_default.py`: Verifies `lambda_function.py` default config and Banana Island venue GPS.
+6. `test_excel_compiler.py`: Verifies `compile_attendance_excel.py` S3 ingestion, aggregation, and Excel generation.
+
+
