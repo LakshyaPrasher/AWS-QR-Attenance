@@ -193,7 +193,7 @@ def reverse_geocode_location(location):
         }
 
         headers = {
-            "User-Agent": "LupinAttendanceApp/1.0 contact-lakshyaprasher"
+            "User-Agent": "AttendanceLocationEngine/1.0"
         }
 
         result = http_get_json(
