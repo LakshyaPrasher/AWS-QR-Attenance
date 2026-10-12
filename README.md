@@ -90,19 +90,47 @@ reports/airtel-zambia_2026-09-22.pptx  ← Always reflects the complete accumula
 
 ---
 
-## 5. Deployment
+## 5. Deployment & Python Upgrade (Zero-Billing AWS Procedure)
 
+### Python Runtime Specifications
+- **PPT Generator Lambda (`lambda_function.py`)**: AWS Lambda Container Image (`public.ecr.aws/lambda/python:3.13`).
+- **Attendance Handler Lambda (`attendancehandler.py`)**: AWS Lambda Managed Runtime (`python3.13`).
+- **Excel Compiler Lambda (`compile_attendance_excel.py`)**: AWS Lambda Managed Runtime (`python3.13`).
+
+### Exact Zero-Cost Upgrade Steps
+
+#### A. PPT Generator (ECR Container Lambda)
+1. **Build Container with Python 3.13 base**:
+   ```bash
+   docker build -t ppt-generator:latest .
+   ```
+2. **Authenticate & Push to existing ECR repository (overwrite `:latest` tag to prevent storage accumulation)**:
+   ```bash
+   aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <account>.dkr.ecr.ap-south-1.amazonaws.com
+   docker tag ppt-generator:latest <account>.dkr.ecr.ap-south-1.amazonaws.com/ppt-generator:latest
+   docker push <account>.dkr.ecr.ap-south-1.amazonaws.com/ppt-generator:latest
+   ```
+3. **Update Lambda function code**:
+   ```bash
+   aws lambda update-function-code \
+     --function-name ppt-generator \
+     --image-uri <account>.dkr.ecr.ap-south-1.amazonaws.com/ppt-generator:latest
+   ```
+
+#### B. Attendance Ingestion & Excel Lambdas (Managed Runtime)
+Update the function runtime in-place (instant, $0.00 cost):
 ```bash
-# Build container image
-docker build -t ppt-generator .
+aws lambda update-function-configuration \
+  --function-name attendance-handler \
+  --runtime python3.13
 
-# Authenticate & push to ECR
-aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <account>.dkr.ecr.ap-south-1.amazonaws.com
-docker tag ppt-generator:latest <account>.dkr.ecr.ap-south-1.amazonaws.com/ppt-generator:latest
-docker push <account>.dkr.ecr.ap-south-1.amazonaws.com/ppt-generator:latest
-
-# Update Lambda function code
-aws lambda update-function-code \
-  --function-name ppt-generator \
-  --image-uri <account>.dkr.ecr.ap-south-1.amazonaws.com/ppt-generator:latest
+aws lambda update-function-configuration \
+  --function-name compile-attendance-excel \
+  --runtime python3.13
 ```
+
+#### C. Zero-Billing Guarantees & Cost Safety
+- **No NAT Gateways**: Lambda functions operate with direct internet or S3 Gateway Endpoints (100% free). Never attach a VPC NAT Gateway ($32.40/month baseline cost).
+- **No Provisioned Concurrency**: Functions run on On-Demand concurrency covered under the AWS Free Tier (1,000,000 invocations & 3.2M compute seconds free/month).
+- **ECR Storage Zero-Creep**: Pushing with `:latest` replaces the active tag. Untagged images can be cleaned with an ECR Lifecycle rule (`expire untagged images > 1 day`).
+

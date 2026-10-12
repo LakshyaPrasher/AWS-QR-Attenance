@@ -167,6 +167,11 @@ Implemented in `attendancehandler.py` (`normalize_location`):
    - Map tiles are cached in `%TEMP%\osm_tiles\` (Windows) or `/tmp/osm_tiles/` (Lambda). Master pre-rendered HD map asset is `airtel_banana_island_minimalist_map_hd.png`.
 6. **Past "Lusaka Bug":**
    - Ensure `event_config()` default client remains `"Airtel Nigeria"` (not Zambia), and `NIGERIA_HUBS` are prioritized in `LocationValidator`.
+7. **Python 3.13 Upgrade & Zero-Billing AWS Protocol:**
+   - Dockerfile base image: `public.ecr.aws/lambda/python:3.13`.
+   - Managed Lambda runtimes: `python3.13` (AL2023).
+   - Dependencies in `requirements.txt` are pinned to Python 3.13 compatible baselines (`numpy>=2.1.0`, `Pillow>=11.0.0`, etc.).
+   - Never attach Lambda to a VPC NAT Gateway or enable Provisioned Concurrency ($0.00 free tier guarantee).
 
 ---
 

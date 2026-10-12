@@ -65,3 +65,16 @@ The reporting engine is an event-driven AWS serverless architecture designed for
 4. **`3_cyber`**: Cyber Incident Command (Tactical War Room Dark).
 5. **`4_linear`**: Linear Modern Tech (Silicon Valley Keynote).
 6. **`6_flagship`**: Flagship Brand Crimson (Immersive Brand Glow).
+
+---
+
+### 4. Runtime Architecture & Zero-Billing Specifications
+* **Lambda Runtimes**: Upgraded to **Python 3.13** across all services.
+  * `lambda_function.py`: OCI Container Image using `public.ecr.aws/lambda/python:3.13` (AL2023 base) to bundle headless OpenCV and cartographic dependencies within ECR.
+  * `attendancehandler.py`: Managed `python3.13` runtime (Amazon Linux 2023) with standard library `urllib` fallback.
+  * `compile_attendance_excel.py`: Managed `python3.13` runtime with `openpyxl`.
+* **Zero-Billing Guarantees**:
+  * Function invocations are On-Demand, operating within the AWS Always-Free Tier (1M invocations / 3.2M compute seconds/month).
+  * Direct internet & S3 Gateway VPC Endpoints are utilized — no billable VPC NAT Gateways are provisioned.
+  * ECR repository retains `:latest` tag overwrites to prevent image storage accrual.
+
