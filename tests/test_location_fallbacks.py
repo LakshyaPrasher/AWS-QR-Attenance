@@ -1,6 +1,12 @@
 import sys
 import os
 
+_TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+_PARENT_DIR = os.path.abspath(os.path.join(_TEST_DIR, ".."))
+for _p in [_TEST_DIR, _PARENT_DIR]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 from attendancehandler import normalize_location, reverse_geocode_location
 
 print("--- TEST 1: GPS Granted ---")
